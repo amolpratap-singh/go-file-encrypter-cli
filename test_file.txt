@@ -9,10 +9,3 @@ with the release of Letraset sheets containing
 Lorem Ipsum passages, and more recently with desktop 
 publishing software like Aldus PageMaker including 
 versions of Lorem Ipsum.
-
-TODO List 
-
-1. Log implementation
-2. CLI argument with protocols more option
-3. executable file to be made
-4. README.md to be provided

@@ -9,6 +9,14 @@ import (
 	"github.com/amolpratap-singh/file-encrypter/filecrypt"
 )
 
+/*
+	TODO List:
+	1. Log implementation
+	2. CLI argument with protocols more option
+	3. project to be executable file to be made
+	4. README.md to be provided
+*/
+
 func main() {
 	fmt.Println("Go CLI Tool for file encryption and Decryption")
 
