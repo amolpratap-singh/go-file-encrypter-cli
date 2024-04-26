@@ -6,6 +6,7 @@ import (
 	"os"
 
 	"golang.org/x/term"
+	"github.com/amolpratap-singh/file-encrypter/filecrypt"
 )
 
 func main() {
