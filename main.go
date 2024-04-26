@@ -60,12 +60,35 @@ func encryptHandler() {
 		panic("File not found")
 	}
 
+	fmt.Println("Enter Password: ")
 	password := getPassword()
+
+	fmt.Println("\nEncrytping the file ...")
 	fmt.Println(password)
+
+	filecrypt.Encrypt(file, password)
+	fmt.Println("File encrypted succesfully ...")
 }
 
 func decryptHandler() {
-	fmt.Println("Decryption of File will be done")
+	if len(os.Args) < 3 {
+		println("Missing the path to the file. For more information run CryptoGo help")
+		os.Exit(0)
+	}
+
+	file := os.Args[2]
+
+	if !validateFile(file) {
+		panic("File not found")
+	}
+
+	fmt.Println("Enter Password: ")
+	password := getPassword()
+
+	fmt.Println("\nDecrytping the file ...")
+
+	filecrypt.Decrypt(file, password)
+	fmt.Println("File succesfully decrypted ...")
 }
 
 func validateFile(fileName string) bool {
@@ -76,7 +99,6 @@ func validateFile(fileName string) bool {
 }
 
 func getPassword() []byte {
-	fmt.Println("Enter Password: ")
 	password, _ := term.ReadPassword(0)
 	fmt.Print("\nConfirm password: ")
 	confirmPassword, _ := term.ReadPassword(0)

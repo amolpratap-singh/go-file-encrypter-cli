@@ -1,1 +1,8 @@
-Use for encrypting this file
+Data inside this file is important and to be encrypted
+
+TODO List 
+
+1. Log implementation
+2. CLI argument with protocols more option
+3. executable file to be made
+4. README.md to be provided
