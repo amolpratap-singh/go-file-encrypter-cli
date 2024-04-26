@@ -1,8 +1,11 @@
 package main
 
 import (
+	"bytes"
 	"fmt"
 	"os"
+
+	"golang.org/x/term"
 )
 
 func main() {
@@ -46,9 +49,49 @@ func helper() {
 }
 
 func encryptHandler() {
-	fmt.Println("Encryption of File will be done")
+	if len(os.Args) < 3 {
+		println("Missing the path to the file. For more information run CryptoGo help")
+		os.Exit(0)
+	}
+
+	file := os.Args[2]
+
+	if !validateFile(file) {
+		panic("File not found")
+	}
+
+	password := getPassword()
+	fmt.Println(password)
 }
 
 func decryptHandler() {
 	fmt.Println("Decryption of File will be done")
+}
+
+func validateFile(fileName string) bool {
+	if _, err := os.Stat(fileName); os.IsNotExist(err) {
+		return false
+	}
+	return true
+}
+
+func getPassword() []byte {
+	fmt.Println("Enter Password: ")
+	password, _ := term.ReadPassword(0)
+	fmt.Print("\nConfirm password: ")
+	confirmPassword, _ := term.ReadPassword(0)
+
+	if !validatePassword(password, confirmPassword) {
+		fmt.Print("\nPasswords do not match. Please try again.\n")
+		return getPassword()
+	}
+
+	return password
+}
+
+func validatePassword(password []byte, confirmPassword []byte) bool {
+	if !bytes.Equal(password, confirmPassword) {
+		return false
+	}
+	return true
 }
