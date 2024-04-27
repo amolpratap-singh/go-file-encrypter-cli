@@ -11,7 +11,7 @@ import (
 )
 
 func main() {
-	logger.Log.Info().Msg("Go CLI Tool for file encryption and decryption")
+	logger.Info("Go CLI Tool for file encryption and decryption")
 
 	if len(os.Args) < 2 {
 		helper()
@@ -28,7 +28,7 @@ func main() {
 	case "decrypt":
 		decryptHandler()
 	default:
-		logger.Log.Info().Msg("Execute EncrypterCLI to encrypt or decrypt a file")
+		logger.Error("Execute EncrypterCLI to encrypt or decrypt a file")
 		os.Exit(1)
 	}
 
@@ -52,45 +52,47 @@ func helper() {
 
 func encryptHandler() {
 	if len(os.Args) < 3 {
-		logger.Log.Info().Msg("Missing the path to the file. For more information run CryptoGo help")
+		logger.Info("Missing the path to the file. For more information run CryptoGo help")
 		os.Exit(0)
 	}
 
 	file := os.Args[2]
 
 	if !validateFile(file) {
-		logger.Log.Panic().Msg("File not found")
+		logger.Error("File not found")
+		panic("File not found")
 	}
 
-	logger.Log.Info().Msg("Enter Password: ")
+	fmt.Println("Enter Password: ")
 	password := getPassword()
 
-	logger.Log.Info().Msg("Encrytping the file ...")
+	logger.Info("Encrytping the file ...")
 	//logger.Log.Info().Msgf("%v",password)
 
 	filecrypt.Encrypt(file, password)
-	logger.Log.Info().Msg("File encrypted succesfully ...")
+	logger.Info("File encrypted succesfully ...")
 }
 
 func decryptHandler() {
 	if len(os.Args) < 3 {
-		logger.Log.Info().Msg("Missing the path to the file. For more information run EncrypterCLI help")
+		logger.Error("Missing the path to the file. For more information run EncrypterCLI help")
 		os.Exit(0)
 	}
 
 	file := os.Args[2]
 
 	if !validateFile(file) {
-		logger.Log.Panic().Msg("File not found")
+		logger.Error("File not found")
+		panic("File not found")
 	}
 
-	logger.Log.Info().Msg("Enter Password: ")
+	fmt.Println("Enter Password: ")
 	password := getPassword()
 
-	logger.Log.Info().Msg("Decrytping the file ...")
+	logger.Info("Decrytping the file ...")
 
 	filecrypt.Decrypt(file, password)
-	logger.Log.Info().Msg("File succesfully decrypted ...")
+	logger.Info("File succesfully decrypted ...")
 }
 
 func validateFile(fileName string) bool {
@@ -102,11 +104,11 @@ func validateFile(fileName string) bool {
 
 func getPassword() []byte {
 	password, _ := term.ReadPassword(0)
-	logger.Log.Info().Msg("Confirm password: ")
+	fmt.Println("Confirm password: ")
 	confirmPassword, _ := term.ReadPassword(0)
 
 	if !validatePassword(password, confirmPassword) {
-		logger.Log.Info().Msg("Passwords do not match. Please try again.")
+		logger.Error("Passwords do not match. Please try again.")
 		return getPassword()
 	}
 
