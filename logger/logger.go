@@ -10,8 +10,7 @@ import (
 var log zerolog.Logger
 
 func init() {
-	//zerolog.TimeFieldFormat = zerolog.TimeFormatUnix
-	zerolog.TimeFieldFormat = time.RFC3339
+	zerolog.TimeFieldFormat = zerolog.TimeFormatUnix
 	log = zerolog.New(os.Stdout).With().Timestamp().Logger()
 }
 
