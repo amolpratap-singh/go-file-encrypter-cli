@@ -1,8 +1,8 @@
 ## Encrypter CLI Tool
 
-Encrypter CLI tool is build on golang.
+The Encrypter CLI tool, developed in Golang, enables file encryption and decryption using symmetric encryption techniques.
 
-### About
+For encryption or decryption operations, the tool utilizes the crypto package, a built-in package in Go.
 
 ### Usage
 
