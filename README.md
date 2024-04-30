@@ -36,20 +36,19 @@ go run main.go decrypt sample_file.txt
 
 ### Implementation Workflow
 
-#### 1. Encryption
+#### 1. Encryption Flow
 
-check_for_source_file.txt => open the source file => read the plain text from source file
+* The program begins by checking for the presence of the source file specified by the user. If the file exists, it proceeds to open it and extract the plain text content. It then generates an empty nonce and randomizes it for further processing.
 
-create empty nonce => randomize the nonce => 
+* Following that, a password-based derivation function is employed to create a key from the provided password. This function incorporates parameters such as the password itself, byte length, SHA-1 hash, iteration count, and the randomized nonce.
 
-password based derivation function (password to encrypt the file, byte length, SHA-1, iterations,randomize the nonce )
+* Once the key is derived, it is utilized alongside the AES Cipher (Advanced Encryption Standard) to encrypt the plain text data.
 
-A function in which is a key is generated from the password, can be used as an encryption key or as a hash value.
+* The AES Cipher operates in Galois Counter Mode (GCM), which produces a tag appended to the ciphertext. This tag plays a critical role in ensuring data integrity during decryption.
 
-derived key => AES Cipher (Advanced encryption standard) => cipher block => galois counter mode (GCM generates a tag which is appended to the ciphertext. This tag is used to verify the integerity of the data upon decryption. 
-GCM uses AES to encrypt the plain text data. It operates in a counter mode and generates a stream of encrypted blocks.)
+* Using AES GCM encryption (aesgcm.SEAL), the program encrypts the plain text to generate the cipher text. Subsequently, it generates a new source file to store the encrypted data and writes the cipher text into it.
 
-plain text from the file => aesgcm.SEAL => cipher text => create a source file for encrypted data => write cipher text to new source file 
+#### 2. Decryption Flow
 
 
 
