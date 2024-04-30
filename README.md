@@ -50,5 +50,10 @@ go run main.go decrypt sample_file.txt
 
 #### 2. Decryption Flow
 
+check for encrypted file => open the encrypted file => read cipher text from the encrypted file
 
+12 byte nonce was added to the encryption file at the end while encryption => Read the nonce by reading the last 12 digits of the encrypted data
 
+password-based derivation function (password, byte lengthm sha-1, iterations, nonce) => derived key => aes cipher => cipher block => Galois Counter Mode (GCM)
+
+pass cipher text file to the function without nonce => aesgcm.Open => get the plain text back => create a file for writing the decrypted data => write decrypted data to it
